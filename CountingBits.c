@@ -1,27 +1,30 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-// The current statement is for the counting the number 
-// of set bit of numbers between 1 -> n and return the array;
-
-int countSetBit(int n){
-    int count = 0;
-
-    while(n > 0){
-        if((n & 1) != 0) count++;
-        n = n >> 1;
+void countBits(int n, int *result) {
+    result[0] = 0;
+    for (int i = 1; i <= n; ++i) {
+        result[i] = result[i >> 1] + (i & 1);
     }
-
-    return count;
 }
 
-int main(){
-    
-    int n = 15;
-    int arr[n + 1];
-
-    for(int i = 0; i <= n; i++){
-        printf("Set bit of %d is : %d \n", i, countSetBit(i));
+int main(void) {
+    int n;
+    printf("Enter n: ");
+    if (scanf("%d", &n) != 1 || n < 0) {
+        return 1;
     }
 
+    int *result = (int *)malloc((n + 1) * sizeof(int));
+    if (result == NULL) {
+        return 1;
+    }
+
+    countBits(n, result);
+    for (int i = 0; i <= n; ++i) {
+        printf("%d%s", result[i], (i == n) ? "\n" : " ");
+    }
+
+    free(result);
     return 0;
 }

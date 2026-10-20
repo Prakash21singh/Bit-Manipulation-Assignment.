@@ -1,21 +1,21 @@
-#include<stdio.h>
+#include <stdio.h>
 
-// Current coding question is
-// https://leetcode.com/problems/number-of-1-bits
-// to count the numbers of set bit present in a number.
-int main(){
+unsigned int hammingWeight(unsigned int n) {
+    unsigned int count = 0;
+    while (n > 0) {
+        count += (n & 1U);
+        n >>= 1;
+    }
+    return count;
+}
 
-    int n;
-    printf("Enter the number for calculating it's set bit. \n");
-    scanf("%d", &n);
-
-    int count = 0;
-    while(n > 0){
-        if((n & 1) != 0) count++;
-        n = n >> 1;
+int main(void) {
+    unsigned int n;
+    printf("Enter a number: ");
+    if (scanf("%u", &n) != 1) {
+        return 1;
     }
 
-    printf("Number of set bits are:  %d", count);
-
+    printf("Set bits: %u\n", hammingWeight(n));
     return 0;
 }
